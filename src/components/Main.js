@@ -1,43 +1,20 @@
-// components/Footer.js
+// components/Main.js
 import React from 'react';
 
-function Footer() {
+function Main() {
   return (
-    <footer className="footer">
-      <div className="footer-content">
-        <section className="contact-info">
-          <h3>Contact Us</h3>
-          <address>
-            123 Mediterranean Avenue<br />
-            Chicago, IL 60601<br />
-            Phone: (312) 555-0123<br />
-            Email: info@littlelemon.com
-          </address>
-        </section>
-        
-        <section className="social-links">
-          <h3>Connect With Us</h3>
-          <ul>
-            <li><a href="https://facebook.com/littlelemon">Facebook</a></li>
-            <li><a href="https://instagram.com/littlelemon">Instagram</a></li>
-            <li><a href="https://twitter.com/littlelemon">Twitter</a></li>
-          </ul>
-        </section>
-        
-        <section className="opening-hours">
-          <h3>Opening Hours</h3>
-          <ul>
-            <li>Monday - Friday: 11:00 AM - 10:00 PM</li>
-            <li>Saturday - Sunday: 10:00 AM - 11:00 PM</li>
-          </ul>
-        </section>
-      </div>
+    <main className="main-content">
+      <section className="hero">
+        <h1>Welcome to Little Lemon</h1>
+        <p>Chicago's finest Mediterranean cuisine</p>
+      </section>
       
-      <div className="copyright">
-        <p>&copy; 2025 Little Lemon Restaurant. All rights reserved.</p>
-      </div>
-    </footer>
+      <section className="reservation">
+        <h2>Reserve a Table</h2>
+        {/* Reservation form will be added here */}
+      </section>
+    </main>
   );
 }
 
-export default Footer;
+export default Main;
