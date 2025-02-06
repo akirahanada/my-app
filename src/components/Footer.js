@@ -1,11 +1,11 @@
-// components/Footer.js
+// Footer.js
 import React from 'react';
 
 function Footer() {
   return (
     <footer className="footer">
       <div className="footer-content">
-        <section className="contact-info">
+        <section>
           <h3>Contact Us</h3>
           <address>
             123 Mediterranean Avenue<br />
@@ -15,7 +15,7 @@ function Footer() {
           </address>
         </section>
         
-        <section className="social-links">
+        <section>
           <h3>Connect With Us</h3>
           <ul>
             <li><a href="https://facebook.com/littlelemon">Facebook</a></li>
@@ -24,7 +24,7 @@ function Footer() {
           </ul>
         </section>
         
-        <section className="opening-hours">
+        <section>
           <h3>Opening Hours</h3>
           <ul>
             <li>Monday - Friday: 11:00 AM - 10:00 PM</li>

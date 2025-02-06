@@ -1,4 +1,4 @@
-// components/Main.js
+// Main.js
 import React from 'react';
 
 function Main() {
@@ -6,7 +6,7 @@ function Main() {
     <main className="main-content">
       <section className="hero">
         <h1>Welcome to Little Lemon</h1>
-        <p>Chicago's finest Mediterranean cuisine</p>
+        <p>Experience the finest Mediterranean cuisine in Chicago</p>
       </section>
       
       <section className="reservation">

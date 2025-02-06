@@ -1,4 +1,4 @@
-// components/Nav.js
+// Nav.js
 import React from 'react';
 
 function Nav() {
@@ -15,5 +15,6 @@ function Nav() {
     </nav>
   );
 }
+
 
 export default Nav;
