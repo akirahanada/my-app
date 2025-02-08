@@ -1,18 +1,24 @@
-// Main.js
+// components/Main.js
 import React from 'react';
+import { Routes, Route } from 'react-router-dom';
+import HomePage from './HomePage';
+import AboutPage from './AboutPage';
+import MenuPage from './MenuPage';
+import BookingPage from './BookingPage';
+import OrderOnlinePage from './OrderOnlinePage';
+import ContactPage from './ContactPage';
 
 function Main() {
   return (
     <main className="main-content">
-      <section className="hero">
-        <h1>Welcome to Little Lemon</h1>
-        <p>Experience the finest Mediterranean cuisine in Chicago</p>
-      </section>
-      
-      <section className="reservation">
-        <h2>Reserve a Table</h2>
-        {/* Reservation form will be added here */}
-      </section>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/menu" element={<MenuPage />} />
+        <Route path="/reservations" element={<BookingPage />} />
+        <Route path="/order-online" element={<OrderOnlinePage />} />
+        <Route path="/contact" element={<ContactPage />} />
+      </Routes>
     </main>
   );
 }
