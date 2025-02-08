@@ -1,4 +1,4 @@
-// components/Main.js
+// src/components/Main.js
 import React, { useReducer } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import HomePage from './HomePage';
@@ -7,35 +7,7 @@ import MenuPage from './MenuPage';
 import BookingPage from './BookingPage';
 import OrderOnlinePage from './OrderOnlinePage';
 import ContactPage from './ContactPage';
-
-const UPDATE_TIMES = 'UPDATE_TIMES';
-
-const timesReducer = (state, action) => {
-  switch (action.type) {
-    case UPDATE_TIMES:
-      return [
-        '17:00',
-        '18:00',
-        '19:00',
-        '20:00',
-        '21:00',
-        '22:00'
-      ];
-    default:
-      return state;
-  }
-};
-
-const initializeTimes = () => {
-  return [
-    '17:00',
-    '18:00',
-    '19:00',
-    '20:00',
-    '21:00',
-    '22:00'
-  ];
-};
+import { timesReducer, initializeTimes, UPDATE_TIMES } from '../utils/bookingUtils';
 
 function Main() {
   const [availableTimes, dispatch] = useReducer(timesReducer, null, initializeTimes);
