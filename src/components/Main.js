@@ -8,15 +8,11 @@ import BookingPage from './BookingPage';
 import OrderOnlinePage from './OrderOnlinePage';
 import ContactPage from './ContactPage';
 
-// Action types
 const UPDATE_TIMES = 'UPDATE_TIMES';
 
-// Reducer function
 const timesReducer = (state, action) => {
   switch (action.type) {
     case UPDATE_TIMES:
-      // For now, return same times regardless of date
-      // In a real app, this would use the date to calculate available times
       return [
         '17:00',
         '18:00',
@@ -30,9 +26,7 @@ const timesReducer = (state, action) => {
   }
 };
 
-// Initialize times function
 const initializeTimes = () => {
-  // In a real app, this would fetch initial times from an API
   return [
     '17:00',
     '18:00',
@@ -51,7 +45,7 @@ function Main() {
   };
 
   return (
-    <main className="main-content">
+    <main className="main-content" role="main">
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/about" element={<AboutPage />} />

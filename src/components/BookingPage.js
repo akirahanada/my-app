@@ -10,7 +10,7 @@ function BookingPage({ availableTimes, updateTimes }) {
   const handleDateChange = (e) => {
     const newDate = e.target.value;
     setDate(newDate);
-    updateTimes(newDate); // Dispatch action to update available times
+    updateTimes(newDate);
   };
 
   const handleSubmit = (event) => {
@@ -19,52 +19,86 @@ function BookingPage({ availableTimes, updateTimes }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} style={{ display: 'grid', maxWidth: '300px', gap: '20px' }}>
-      <label htmlFor="res-date">Choose date</label>
-      <input 
-        type="date" 
-        id="res-date" 
-        value={date} 
-        onChange={handleDateChange}
-        required 
-      />
+    <>
+      <section className="booking-section" aria-label="Reservation Form">
+        <h1>Reserve a Table</h1>
+        <form 
+          onSubmit={handleSubmit} 
+          className="booking-form"
+          aria-labelledby="booking-header"
+        >
+          <fieldset>
+            <legend id="booking-header">Reservation Details</legend>
+            
+            <div className="form-group">
+              <label htmlFor="res-date">Choose date</label>
+              <input 
+                type="date" 
+                id="res-date" 
+                value={date} 
+                onChange={handleDateChange}
+                required 
+                aria-required="true"
+                aria-label="Reservation date"
+              />
+            </div>
 
-      <label htmlFor="res-time">Choose time</label>
-      <select 
-        id="res-time" 
-        value={time} 
-        onChange={(e) => setTime(e.target.value)}
-        required
-      >
-        <option value="">Select a time</option>
-        {availableTimes.map((timeOption) => (
-          <option key={timeOption} value={timeOption}>{timeOption}</option>
-        ))}
-      </select>
+            <div className="form-group">
+              <label htmlFor="res-time">Choose time</label>
+              <select 
+                id="res-time" 
+                value={time} 
+                onChange={(e) => setTime(e.target.value)}
+                required
+                aria-required="true"
+                aria-label="Reservation time"
+              >
+                <option value="">Select a time</option>
+                {availableTimes.map((timeOption) => (
+                  <option key={timeOption} value={timeOption}>{timeOption}</option>
+                ))}
+              </select>
+            </div>
 
-      <label htmlFor="res-guests">Number of guests</label>
-      <input 
-        type="number" 
-        id="res-guests" 
-        min="1" 
-        max="10" 
-        value={guests} 
-        onChange={(e) => setGuests(parseInt(e.target.value))} 
-        required
-      />
+            <div className="form-group">
+              <label htmlFor="res-guests">Number of guests</label>
+              <input 
+                type="number" 
+                id="res-guests" 
+                min="1" 
+                max="10" 
+                value={guests} 
+                onChange={(e) => setGuests(parseInt(e.target.value))} 
+                required
+                aria-required="true"
+                aria-label="Number of guests"
+              />
+            </div>
 
-      <label htmlFor="res-occasion">Occasion</label>
-      <select 
-        id="res-occasion" 
-        value={occasion} 
-        onChange={(e) => setOccasion(e.target.value)}
-      >
-        <option value="Birthday">Birthday</option>
-        <option value="Anniversary">Anniversary</option>
-      </select>
+            <div className="form-group">
+              <label htmlFor="res-occasion">Occasion</label>
+              <select 
+                id="res-occasion" 
+                value={occasion} 
+                onChange={(e) => setOccasion(e.target.value)}
+                aria-label="Occasion"
+              >
+                <option value="Birthday">Birthday</option>
+                <option value="Anniversary">Anniversary</option>
+              </select>
+            </div>
+          </fieldset>
 
-      <button type="submit" className="button-primary">Submit Reservation</button>
-    </form>
+          <button 
+            type="submit" 
+            className="button-primary"
+            aria-label="Submit reservation request"
+          >
+            Submit Reservation
+          </button>
+        </form>
+      </section>
+    </>
   );
 }
 
