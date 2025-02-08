@@ -9,7 +9,7 @@ function CallToAction() {
         <h1>Little Lemon</h1>
         <h2>Chicago</h2>
         <p>We are a family owned Mediterranean restaurant, focused on traditional recipes served with a modern twist.</p>
-        <Link to="/reservations" className="cta-button">Reserve a Table</Link>
+        <Link to="/reservations" className="button reserve-button">Reserve a Table</Link>
       </div>
     </section>
   );

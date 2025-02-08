@@ -632,3 +632,22 @@ p {
     grid-row: 4 / -1;
   }
 }
+
+
+
+/* Add Reserva a table  */
+.reserve-button {
+  background-color: #F4CE14;
+  color: #000000;
+  padding: 1rem 2rem;
+  border-radius: var(--border-radius);
+  font-weight: 700;
+  text-decoration: none;
+  text-align: center;
+  transition: all var(--transition-speed);
+}
+
+.reserve-button:hover {
+  background-color: var(--secondary-light);
+  transform: translateY(-2px);
+}
