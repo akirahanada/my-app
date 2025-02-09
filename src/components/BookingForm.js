@@ -44,12 +44,18 @@ const BookingForm = ({ availableTimes, submitForm }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validateForm()) {
+      // Create submission data with proper type conversion
+      const submissionData = {
+        ...formData,
+        guests: parseInt(formData.guests, 10)
+      };
+      
       // Save to localStorage first
-      const saved = saveBooking(formData);
+      const saved = saveBooking(submissionData);
       
       if (saved) {
         // If save was successful, call the submitForm prop
-        submitForm(formData);
+        submitForm(submissionData);
         
         // Reset form
         setFormData({
@@ -76,7 +82,7 @@ const BookingForm = ({ availableTimes, submitForm }) => {
 
   const updateAvailableTimes = (selectedDate) => {
     // Get all reservations for the selected date
-    const existingBookings = getBookingsByDate(selectedDate);
+    const existingBookings = getBookingsByDate(selectedDate) || [];
     
     // Get all reserved times for that date
     const reservedTimes = new Set(existingBookings.map(booking => booking.time));
