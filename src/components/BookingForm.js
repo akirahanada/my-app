@@ -114,9 +114,9 @@ const BookingForm = ({ availableTimes, submitForm }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} noValidate>
-      <div>
-        <label htmlFor="date">Date</label>
+    <form onSubmit={handleSubmit} noValidate aria-label="Reservation form">
+      <div className="form-group">
+        <label htmlFor="date" id="date-label">Reservation Date</label>
         <input
           type="date"
           id="date"
@@ -124,33 +124,45 @@ const BookingForm = ({ availableTimes, submitForm }) => {
           value={formData.date}
           onChange={handleChange}
           required
-          aria-label="Choose date"
+          aria-labelledby="date-label"
+          aria-required="true"
           aria-invalid={!!errors.date}
+          aria-describedby={errors.date ? "date-error" : undefined}
         />
-        {errors.date && <span className="error">{errors.date}</span>}
+        {errors.date && (
+          <span id="date-error" className="error" role="alert">
+            {errors.date}
+          </span>
+        )}
       </div>
 
-      <div>
-        <label htmlFor="time">Time</label>
+      <div className="form-group">
+        <label htmlFor="time" id="time-label">Reservation Time</label>
         <select
           id="time"
           name="time"
           value={formData.time}
           onChange={handleChange}
           required
-          aria-label="Choose time"
+          aria-labelledby="time-label"
+          aria-required="true"
           aria-invalid={!!errors.time}
+          aria-describedby={errors.time ? "time-error" : undefined}
         >
           <option value="">Select a time</option>
           {availableTimeSlots.map(time => (
             <option key={time} value={time}>{time}</option>
           ))}
         </select>
-        {errors.time && <span className="error">{errors.time}</span>}
+        {errors.time && (
+          <span id="time-error" className="error" role="alert">
+            {errors.time}
+          </span>
+        )}
       </div>
 
-      <div>
-        <label htmlFor="guests">Number of guests</label>
+      <div className="form-group">
+        <label htmlFor="guests" id="guests-label">Number of guests</label>
         <input
           type="number"
           id="guests"
@@ -160,37 +172,54 @@ const BookingForm = ({ availableTimes, submitForm }) => {
           value={formData.guests}
           onChange={handleChange}
           required
-          aria-label="Number of guests"
+          aria-labelledby="guests-label"
+          aria-required="true"
           aria-invalid={!!errors.guests}
+          aria-describedby={errors.guests ? "guests-error" : undefined}
         />
-        {errors.guests && <span className="error">{errors.guests}</span>}
+        {errors.guests && (
+          <span id="guests-error" className="error" role="alert">
+            {errors.guests}
+          </span>
+        )}
       </div>
 
-      <div>
-        <label htmlFor="occasion">Occasion</label>
+      <div className="form-group">
+        <label htmlFor="occasion" id="occasion-label">Occasion</label>
         <select
           id="occasion"
           name="occasion"
           value={formData.occasion}
           onChange={handleChange}
           required
-          aria-label="Occasion"
+          aria-labelledby="occasion-label"
+          aria-required="true"
           aria-invalid={!!errors.occasion}
+          aria-describedby={errors.occasion ? "occasion-error" : undefined}
         >
           <option value="Birthday">Birthday</option>
           <option value="Anniversary">Anniversary</option>
         </select>
-        {errors.occasion && <span className="error">{errors.occasion}</span>}
+        {errors.occasion && (
+          <span id="occasion-error" className="error" role="alert">
+            {errors.occasion}
+          </span>
+        )}
       </div>
 
       <button 
         type="submit" 
         className="reserve-button"
-        aria-label="Submit reservation"
+        aria-label="Submit reservation request"
       >
         Make Your Reservation
       </button>
-      {errors.submit && <div className="error" role="alert">{errors.submit}</div>}
+      
+      {errors.submit && (
+        <div className="error" role="alert" aria-live="polite">
+          {errors.submit}
+        </div>
+      )}
     </form>
   );
 };
