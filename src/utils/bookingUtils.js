@@ -1,6 +1,4 @@
 // src/utils/bookingUtils.js
-
-// src/utils/bookingUtils.js
 import { fetchAPI } from './api';
 
 export const UPDATE_TIMES = 'UPDATE_TIMES';
@@ -14,13 +12,16 @@ export const getAvailableTimes = (date) => {
 export const timesReducer = (state, action) => {
   switch (action.type) {
     case UPDATE_TIMES:
-      return action.payload;
+      // Get available times for the selected date
+      const selectedDate = new Date(action.payload);
+      return fetchAPI(selectedDate);
     default:
       return state;
   }
 };
 
 export const initializeTimes = () => {
+  // Initialize with today's available times
   const today = new Date();
-  return getAvailableTimes(today);
+  return fetchAPI(today);
 };
