@@ -1,31 +1,26 @@
 // src/utils/bookingUtils.js
 
+// src/utils/bookingUtils.js
+import { fetchAPI } from './api';
+
 export const UPDATE_TIMES = 'UPDATE_TIMES';
+
+// Helper function to get available times for a date
+export const getAvailableTimes = (date) => {
+  const dateObj = typeof date === 'string' ? new Date(date) : date;
+  return fetchAPI(dateObj);
+};
 
 export const timesReducer = (state, action) => {
   switch (action.type) {
     case UPDATE_TIMES:
-      // For now, return the same available times regardless of date
-      return [
-        '17:00',
-        '18:00',
-        '19:00',
-        '20:00',
-        '21:00',
-        '22:00'
-      ];
+      return action.payload;
     default:
       return state;
   }
 };
 
 export const initializeTimes = () => {
-  return [
-    '17:00',
-    '18:00',
-    '19:00',
-    '20:00',
-    '21:00',
-    '22:00'
-  ];
+  const today = new Date();
+  return getAvailableTimes(today);
 };
