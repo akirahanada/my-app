@@ -2,6 +2,12 @@
 import { render, screen, cleanup } from "@testing-library/react";
 import Main from "./Main";
 import { initializeTimes, timesReducer } from '../utils/bookingUtils';
+import { fetchAPI } from '../utils/api';
+
+// Mock the API
+jest.mock('../utils/api', () => ({
+  fetchAPI: jest.fn()
+}));
 
 // Mock child components
 jest.mock('./HomePage', () => {
@@ -24,21 +30,28 @@ jest.mock('./BookingPage', () => {
   return MockBookingPage;
 });
 
-// Clean up after each test
-afterEach(() => {
-  cleanup();
-  jest.resetModules();
-});
-
-// Clean up after all tests
-afterAll(() => {
-  jest.clearAllMocks();
-});
-
 describe("Main Component", () => {
   beforeEach(() => {
     // Reset all mocks before each test
     jest.clearAllMocks();
+    
+    // Set default mock return value for fetchAPI
+    fetchAPI.mockReturnValue([
+      '17:00',
+      '17:30',
+      '18:00',
+      '19:00',
+      '19:30',
+      '20:00',
+      '21:30',
+      '22:30',
+      '23:00'
+    ]);
+  });
+
+  afterEach(() => {
+    cleanup();
+    jest.resetModules();
   });
 
   test("renders main content", () => {
@@ -51,11 +64,14 @@ describe("Main Component", () => {
     const times = initializeTimes();
     expect(times).toEqual([
       '17:00',
+      '17:30',
       '18:00',
       '19:00',
+      '19:30',
       '20:00',
-      '21:00',
-      '22:00'
+      '21:30',
+      '22:30',
+      '23:00'
     ]);
   });
 
