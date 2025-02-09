@@ -10,6 +10,7 @@ import OrderOnlinePage from './OrderOnlinePage';
 import ContactPage from './ContactPage';
 import { timesReducer, initializeTimes, UPDATE_TIMES } from '../utils/bookingUtils';
 import { submitAPI } from '../utils/api';
+import { saveBooking } from '../utils/bookingStorage';
 
 function Main() {
   const navigate = useNavigate();
@@ -22,17 +23,24 @@ function Main() {
   const submitForm = (formData) => {
     const success = submitAPI(formData);
     if (success) {
-      // Show immediate confirmation with details
-      const message = `Reservation Confirmed!\n\n` +
-        `Date: ${new Date(formData.date).toLocaleDateString()}\n` +
-        `Time: ${formData.time}\n` +
-        `Number of Guests: ${formData.guests}\n` +
-        `Occasion: ${formData.occasion}`;
+      // Save to localStorage and update existing data
+      const savedSuccessfully = saveBooking(formData);
       
-      alert(message);
-      
-      // Navigate to confirmation page with details
-      navigate('/confirmed-booking', { state: { reservation: formData } });
+      if (savedSuccessfully) {
+        // Show immediate confirmation with details
+        const message = `Reservation Confirmed!\n\n` +
+          `Date: ${new Date(formData.date).toLocaleDateString()}\n` +
+          `Time: ${formData.time}\n` +
+          `Number of Guests: ${formData.guests}\n` +
+          `Occasion: ${formData.occasion}`;
+        
+        alert(message);
+        
+        // Navigate to confirmation page with details
+        navigate('/confirmed-booking', { state: { reservation: formData } });
+      } else {
+        alert('Booking was processed but could not be saved locally. Please save your confirmation details.');
+      }
     }
   };
 
