@@ -2,95 +2,107 @@
 import React, { useState } from 'react';
 
 function BookingForm({ availableTimes, updateTimes, submitForm }) {
-  const [date, setDate] = useState('');
-  const [time, setTime] = useState('');
-  const [guests, setGuests] = useState(1);
-  const [occasion, setOccasion] = useState('Birthday');
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    submitForm({ date, time, guests, occasion });
-  };
+  const [formData, setFormData] = useState({
+    date: '',
+    time: '',
+    guests: 1,
+    occasion: 'Anniversary'
+  });
 
   const handleDateChange = (e) => {
     const newDate = e.target.value;
-    setDate(newDate);
+    setFormData(prev => ({ ...prev, date: newDate }));
     updateTimes(newDate);
   };
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: name === 'guests' ? parseInt(value) : value
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    submitForm({
+      date: formData.date,
+      time: formData.time,
+      guests: parseInt(formData.guests),
+      occasion: formData.occasion
+    });
+  };
+
   return (
-    <form 
-      onSubmit={handleSubmit} 
-      className="booking-form"
-      aria-labelledby="booking-header"
-    >
-      <fieldset>
-        <legend id="booking-header">Reservation Details</legend>
-        
-        <div className="form-group">
-          <label htmlFor="res-date">Choose date</label>
-          <input 
-            type="date" 
-            id="res-date" 
-            value={date} 
-            onChange={handleDateChange}
-            required 
-            aria-required="true"
-            min={new Date().toISOString().split('T')[0]}
-            aria-label="Reservation date"
-          />
-        </div>
+    <form onSubmit={handleSubmit} className="booking-form">
+      <div className="form-field">
+        <label htmlFor="res-date">Choose date</label>
+        <input
+          type="date"
+          id="res-date"
+          name="date"
+          required
+          min={new Date().toISOString().split('T')[0]}
+          value={formData.date}
+          onChange={handleDateChange}
+        />
+      </div>
 
-        <div className="form-group">
-          <label htmlFor="res-time">Choose time</label>
-          <select 
-            id="res-time" 
-            value={time} 
-            onChange={(e) => setTime(e.target.value)}
-            required
-            aria-required="true"
-            aria-label="Reservation time"
-          >
-            <option value="">Select a time</option>
-            {(availableTimes || []).map((timeOption) => (
-              <option key={timeOption} value={timeOption}>{timeOption}</option>
-            ))}
-          </select>
-        </div>
+      <div className="form-field">
+        <label htmlFor="res-time">Choose time</label>
+        <select
+          id="res-time"
+          name="time"
+          required
+          value={formData.time}
+          onChange={handleChange}
+        >
+          <option value="">Select a time</option>
+          {availableTimes.map(time => (
+            <option key={time} value={time}>{time}</option>
+          ))}
+        </select>
+      </div>
 
-        <div className="form-group">
-          <label htmlFor="res-guests">Number of guests</label>
-          <input 
-            type="number" 
-            id="res-guests" 
-            min="1" 
-            max="10" 
-            value={guests} 
-            onChange={(e) => setGuests(parseInt(e.target.value))} 
-            required
-            aria-required="true"
-            aria-label="Number of guests"
-          />
-        </div>
+      <div className="form-field">
+        <label htmlFor="guests">Number of guests</label>
+        <input
+          type="number"
+          id="guests"
+          name="guests"
+          min="1"
+          max="10"
+          required
+          value={formData.guests}
+          onChange={handleChange}
+        />
+      </div>
 
-        <div className="form-group">
-          <label htmlFor="res-occasion">Occasion</label>
-          <select 
-            id="res-occasion" 
-            value={occasion} 
-            onChange={(e) => setOccasion(e.target.value)}
-            aria-label="Occasion"
-          >
-            <option value="Birthday">Birthday</option>
-            <option value="Anniversary">Anniversary</option>
-          </select>
-        </div>
-      </fieldset>
+      <div className="form-field">
+        <label htmlFor="occasion">Occasion</label>
+        <select
+          id="occasion"
+          name="occasion"
+          required
+          value={formData.occasion}
+          onChange={handleChange}
+        >
+          <option value="Birthday">Birthday</option>
+          <option value="Anniversary">Anniversary</option>
+        </select>
+      </div>
 
       <button 
-        type="submit" 
-        className="button-primary"
-        aria-label="Submit reservation request"
+        type="submit"
+        className="submit-button"
+        style={{
+          backgroundColor: '#F4CE14',
+          padding: '0.5rem 1rem',
+          border: 'none',
+          borderRadius: '4px',
+          cursor: 'pointer',
+          fontWeight: 'bold'
+        }}
       >
         Submit Reservation
       </button>
